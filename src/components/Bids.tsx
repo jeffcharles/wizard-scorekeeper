@@ -7,24 +7,24 @@ export interface BidsProps {
   round: number
 }
 
-export default class extends React.Component<BidsProps, {bids: {[key: string]: number}}> {
+export default class extends React.Component<BidsProps, {[key: string]: number}> {
   constructor() {
     super();
-    this.state = {bids: {}};
+    this.state = {};
   }
 
   onBidChanged(e: React.FormEvent<HTMLInputElement>, player: string) {
     let newState = Object.assign({}, this.state);
-    newState.bids[player] = parseInt((e.target as any).value, 10);
+    newState[player] = parseInt((e.target as any).value, 10);
     this.setState(newState);
   }
 
   render() {
-    const allBidsSubmitted = Object.keys(this.state.bids).length === this.props.players.length;
+    const allBidsSubmitted = Object.keys(this.state).length === this.props.players.length;
     const bidsEqualToCardCount =
       Object
-        .keys(this.state.bids)
-        .reduce((acc, key) => acc + this.state.bids[key], 0) === this.props.round;
+        .keys(this.state)
+        .reduce((acc, key) => acc + this.state[key], 0) === this.props.round;
 
     return (
       <div>
@@ -43,7 +43,7 @@ export default class extends React.Component<BidsProps, {bids: {[key: string]: n
         </button>
         <button
           disabled={!allBidsSubmitted || bidsEqualToCardCount}
-          onClick={() => this.props.onNext(this.state.bids)}>
+          onClick={() => this.props.onNext(this.state)}>
           Next
         </button>
       </div>

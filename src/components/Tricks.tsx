@@ -7,24 +7,24 @@ export interface TricksProps {
   onNext: (tricks: {[key: string]: number}) => void
 };
 
-export default class extends React.Component<TricksProps, {tricks: {[key: string]: number}}> {
+export default class extends React.Component<TricksProps, {[key: string]: number}> {
   constructor() {
     super();
-    this.state = {tricks: {}};
+    this.state = {};
   }
 
   onTrickChanged(e: React.FormEvent<HTMLInputElement>, player: string) {
     let newState = Object.assign({}, this.state);
-    newState.tricks[player] = parseInt((e.target as any).value, 10);
+    newState[player] = parseInt((e.target as any).value, 10);
     this.setState(newState);
   }
 
   render() {
-    const allTricksSubmitted = Object.keys(this.state.tricks).length === this.props.players.length;
+    const allTricksSubmitted = Object.keys(this.state).length === this.props.players.length;
     const tricksEqualToCardCount =
       Object
-        .keys(this.state.tricks)
-        .reduce((acc, key) => acc + this.state.tricks[key], 0) === this.props.round;
+        .keys(this.state)
+        .reduce((acc, key) => acc + this.state[key], 0) === this.props.round;
 
     return (
       <div>
@@ -41,7 +41,7 @@ export default class extends React.Component<TricksProps, {tricks: {[key: string
         </button>
         <button
           disabled={!allTricksSubmitted || !tricksEqualToCardCount}
-          onClick={() => this.props.onNext(this.state.tricks)}>
+          onClick={() => this.props.onNext(this.state)}>
           Next
         </button>
       </div>
