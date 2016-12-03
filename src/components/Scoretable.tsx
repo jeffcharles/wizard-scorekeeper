@@ -11,14 +11,14 @@ export default class extends React.Component<{players: string[]}, {}> {
         <thead>
           <tr>
             <td style={tdStyle}>Round</td>
-            {this.props.players.map(player => <td style={tdStyle}>{player}</td>)}
+            {this.props.players.map(player => <td key={player} style={tdStyle}>{player}</td>)}
           </tr>
         </thead>
         <tbody>
           {[...Array(60 / this.props.players.length).keys()].map(round =>
-            <tr>
+            <tr key={round}>
               <td style={tdStyle}>{round + 1}</td>
-              {this.props.players.map(player => <td style={tdStyle}></td>)}
+              {this.props.players.map(player => <td key={`${round}-${player}`} style={tdStyle}></td>)}
             </tr>
           )}
         </tbody>
