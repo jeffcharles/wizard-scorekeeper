@@ -5,9 +5,14 @@ import Scoretable from './Scoretable';
 
 export interface GameProps {
   players: string[]
-}
+};
 
-export default class extends React.Component<GameProps, {bidsSubmitted: boolean, round: number}> {
+interface GameState {
+  bidsSubmitted: boolean,
+  round: number
+};
+
+export default class extends React.Component<GameProps, GameState> {
   constructor() {
     super();
     this.state = {bidsSubmitted: false, round: 1};
@@ -54,9 +59,11 @@ export default class extends React.Component<GameProps, {bidsSubmitted: boolean,
           onNext={bids => this.onBidsSubmitted(bids)}
           onPrevious={() => this.onPreviousFromBids()} />
       )
-    return <div>
-      {actionElement}
-      <Scoretable players={this.props.players} />
-    </div>;
+    return (
+      <div>
+        {actionElement}
+        <Scoretable players={this.props.players} />
+      </div>
+    );
   }
 };
