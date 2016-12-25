@@ -26,7 +26,8 @@ export default class extends React.Component<TricksProps,{}> {
         players={this.props.players}
         onPrevious={this.props.onPrevious}
         onNext={this.props.onNext}
-        validateInputs={inputs => this.validateInputs(inputs)}
+        canGoNext={inputs => this.validateInputs(inputs)}
+        canGoPrevious={true}
         initialState={this.props.initialState} />
     );
   }

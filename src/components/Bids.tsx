@@ -26,7 +26,8 @@ export default class extends React.Component<BidsProps, {}> {
         players={this.props.players}
         onPrevious={this.props.onPrevious}
         onNext={this.props.onNext}
-        validateInputs={inputs => this.validateInputs(inputs)}
+        canGoNext={inputs => this.validateInputs(inputs)}
+        canGoPrevious={this.props.round > 1}
         initialState={this.props.initialState} />
     );
   }

@@ -5,7 +5,8 @@ export interface BaseStageProps {
   players: string[],
   onPrevious: () => void,
   onNext: (inputs: {[key: string]: number}) => void,
-  validateInputs: (inputs: {[key: string]: number}) => boolean,
+  canGoNext: (inputs: {[key: string]: number}) => boolean,
+  canGoPrevious: boolean,
   initialState: {[key: string]: number}
 };
 
@@ -32,11 +33,13 @@ export default class extends React.Component<BaseStageProps, {[key: string]: num
             </li>
           )}
         </ol>
-        <button onClick={this.props.onPrevious}>
+        <button
+          disabled={!this.props.canGoPrevious}
+          onClick={this.props.onPrevious}>
           Previous
         </button>
         <button
-          disabled={!this.props.validateInputs(this.state)}
+          disabled={!this.props.canGoNext(this.state)}
           onClick={() => this.props.onNext(this.state)}>
           Next
         </button>
