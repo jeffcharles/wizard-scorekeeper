@@ -3,8 +3,8 @@ import {PlayerInputs} from '../types';
 import ScoreBox from './ScoreBox';
 
 export interface ScoretableProps {
-  players: string[],
-  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
+  readonly players: string[],
+  readonly inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
 };
 
 const tdStyle: React.CSSProperties = {

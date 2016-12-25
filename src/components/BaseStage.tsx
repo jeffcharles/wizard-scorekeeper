@@ -2,20 +2,20 @@ import * as React from 'react';
 import {PlayerInputs} from '../types';
 
 interface BaseStageInputsProps {
-  players: string[],
-  initialState: PlayerInputs,
-  onNext: (bids: PlayerInputs) => void,
-  onPrevious: () => void
+  readonly players: string[],
+  readonly initialState: PlayerInputs,
+  readonly onNext: (bids: PlayerInputs) => void,
+  readonly onPrevious: () => void
 };
 
 export interface StageInputsProps extends BaseStageInputsProps {
-  round: number
+  readonly round: number
 };
 
 export interface BaseStageProps extends BaseStageInputsProps {
-  title: string,
-  canGoNext: (inputs: PlayerInputs) => boolean,
-  canGoPrevious: boolean
+  readonly title: string,
+  readonly canGoNext: (inputs: PlayerInputs) => boolean,
+  readonly canGoPrevious: boolean
 };
 
 export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {

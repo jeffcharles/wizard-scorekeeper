@@ -5,8 +5,8 @@ import {PlayerInputs} from '../types';
 import Setup from './Setup';
 
 export interface AppState {
-  players: string[] | null,
-  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
+  readonly players: string[] | null,
+  readonly inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
 };
 
 export default class extends React.Component<{}, AppState> {

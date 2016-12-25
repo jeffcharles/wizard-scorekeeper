@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 export interface ScoreBoxProps {
-  score: number | null,
-  bid: number | undefined,
-  tricks: number | undefined
+  readonly score: number | null,
+  readonly bid: number | undefined,
+  readonly tricks: number | undefined
 };
 
 const border = '1px solid black';

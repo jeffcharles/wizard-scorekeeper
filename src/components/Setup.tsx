@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 export interface SetupProps {
-  onBeginGame: (players: string[]) => void
+  readonly onBeginGame: (players: string[]) => void
 };
 
 interface SetupState {
-  players: string[]
+  readonly players: string[]
 }
 
 export default class extends React.Component<SetupProps, SetupState> {

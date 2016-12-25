@@ -5,15 +5,15 @@ import Tricks from './Tricks';
 import Scoretable from './Scoretable';
 
 export interface GameProps {
-  players: string[],
-  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[],
-  onBidsSubmitted: (round: number, bids: PlayerInputs) => void,
-  onTricksSubmitted: (round: number, tricks: PlayerInputs) => void
+  readonly players: string[],
+  readonly inputs: {bids: PlayerInputs, tricks: PlayerInputs}[],
+  readonly onBidsSubmitted: (round: number, bids: PlayerInputs) => void,
+  readonly onTricksSubmitted: (round: number, tricks: PlayerInputs) => void
 };
 
 interface GameState {
-  onBids: boolean,
-  round: number,
+  readonly onBids: boolean,
+  readonly round: number,
 };
 
 export default class extends React.Component<GameProps, GameState> {
