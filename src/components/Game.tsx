@@ -16,9 +16,16 @@ interface GameState {
 };
 
 export default class extends React.Component<GameProps, GameState> {
-  constructor() {
-    super();
-    this.state = {onBids: true, round: 0};
+  constructor(props: GameProps) {
+    super(props);
+    const lastInputs = this.props.inputs[this.props.inputs.length - 1];
+    const isInputPopulated = (input: any) => Object.keys(input).length > 0;
+    this.state = {
+      onBids: !lastInputs || (isInputPopulated(lastInputs.bids) && isInputPopulated(lastInputs.tricks)),
+      round: this.props.inputs
+        .filter(round => Object.keys(round.bids).length > 0 && Object.keys(round.tricks).length > 0)
+        .length
+    };
   }
 
   onBidsSubmitted(bids: {[key: string]: number}) {
