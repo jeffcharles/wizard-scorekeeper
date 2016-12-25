@@ -4,52 +4,43 @@ import Tricks from './Tricks';
 import Scoretable from './Scoretable';
 
 export interface GameProps {
-  players: string[]
+  players: string[],
+  inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[],
+  onBidsSubmitted: (round: number, bids: {[key: string]: number}) => void,
+  onTricksSubmitted: (round: number, tricks: {[key: string]: number}) => void
 };
 
 interface GameState {
   onBids: boolean,
   round: number,
-  inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[]
 };
 
 export default class extends React.Component<GameProps, GameState> {
   constructor() {
     super();
-    this.state = {onBids: true, round: 0, inputs: []};
+    this.state = {onBids: true, round: 0};
   }
 
   onBidsSubmitted(bids: {[key: string]: number}) {
-    this.setState(prevState => {
-      prevState.inputs[prevState.round] =
-        prevState.inputs[prevState.round] || {bids: {}, tricks: {}};
-      prevState.inputs[prevState.round].bids = bids;
-      return {onBids: false, inputs: prevState.inputs} as GameState;
-    });
+    this.props.onBidsSubmitted(this.state.round, bids);
+    this.setState({onBids: false} as GameState);
   }
 
   onTricksSubmitted(tricks: {[key: string]: number}) {
+    this.props.onTricksSubmitted(this.state.round, tricks);
     this.setState(prevState => {
-      prevState.inputs[prevState.round].tricks = tricks;
-      return {
-        onBids: true,
-        round: prevState.round + 1,
-        inputs: prevState.inputs
-      };
+      return {onBids: true, round: prevState.round + 1};
     });
   }
 
   onPreviousFromBids() {
-    let newState = Object.assign({}, this.state);
-    newState.onBids = false;
-    newState.round -= 1;
-    this.setState(newState);
+    this.setState(prevState => {
+      return {onBids: false, round: prevState.round - 1};
+    });
   }
 
   onPreviousFromTricks() {
-    let newState = Object.assign({}, this.state);
-    newState.onBids = true;
-    this.setState(newState);
+    this.setState({onBids: true} as GameState);
   }
 
   render() {
@@ -70,7 +61,7 @@ export default class extends React.Component<GameProps, GameState> {
     return (
       <div>
         {actionElement}
-        <Scoretable players={this.props.players} inputs={this.state.inputs} />
+        <Scoretable players={this.props.players} inputs={this.props.inputs} />
       </div>
     );
   }
