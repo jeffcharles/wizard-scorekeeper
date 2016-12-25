@@ -1,15 +1,16 @@
 import * as React from 'react';
+import {PlayerInputs} from '../types';
 import ScoreBox from './ScoreBox';
 
 export interface ScoretableProps {
   players: string[],
-  inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[]
-}
+  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
+};
 
 const tdStyle: React.CSSProperties = {
   border: '1px black solid',
   textAlign: 'center'
-}
+};
 
 export default class extends React.Component<ScoretableProps, {}> {
   render() {

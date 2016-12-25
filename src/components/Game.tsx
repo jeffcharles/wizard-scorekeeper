@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Bids from './Bids';
+import {PlayerInputs} from '../types';
 import Tricks from './Tricks';
 import Scoretable from './Scoretable';
 
 export interface GameProps {
   players: string[],
-  inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[],
-  onBidsSubmitted: (round: number, bids: {[key: string]: number}) => void,
-  onTricksSubmitted: (round: number, tricks: {[key: string]: number}) => void
+  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[],
+  onBidsSubmitted: (round: number, bids: PlayerInputs) => void,
+  onTricksSubmitted: (round: number, tricks: PlayerInputs) => void
 };
 
 interface GameState {
@@ -28,12 +29,12 @@ export default class extends React.Component<GameProps, GameState> {
     };
   }
 
-  onBidsSubmitted(bids: {[key: string]: number}) {
+  onBidsSubmitted(bids: PlayerInputs) {
     this.props.onBidsSubmitted(this.state.round, bids);
     this.setState({onBids: false} as GameState);
   }
 
-  onTricksSubmitted(tricks: {[key: string]: number}) {
+  onTricksSubmitted(tricks: PlayerInputs) {
     this.props.onTricksSubmitted(this.state.round, tricks);
     this.setState(prevState => {
       return {onBids: true, round: prevState.round + 1};

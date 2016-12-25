@@ -1,16 +1,17 @@
 import * as React from 'react';
 import BaseStage from './BaseStage';
+import {PlayerInputs} from '../types';
 
 export interface BidsProps {
-  onNext: (bids: {[key: string]: number}) => void,
+  onNext: (bids: PlayerInputs) => void,
   onPrevious: () => void,
   players: string[],
   round: number,
-  initialState: {[key: string]: number}
+  initialState: PlayerInputs
 }
 
 export default class extends React.Component<BidsProps, {}> {
-  validateInputs(inputs: {[key: string]: number}): boolean {
+  validateInputs(inputs: PlayerInputs): boolean {
     const allBidsSubmitted = Object.keys(inputs).length === this.props.players.length;
     const bidsEqualToCardCount =
       Object

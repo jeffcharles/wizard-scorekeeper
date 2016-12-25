@@ -1,11 +1,12 @@
 import * as React from 'react';
 
 import Game from './Game';
+import {PlayerInputs} from '../types';
 import Setup from './Setup';
 
 export interface AppState {
   players: string[] | null,
-  inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[]
+  inputs: {bids: PlayerInputs, tricks: PlayerInputs}[]
 };
 
 export default class extends React.Component<{}, AppState> {
@@ -23,7 +24,7 @@ export default class extends React.Component<{}, AppState> {
     this.setState({players} as AppState);
   }
 
-  onBidsSubmitted(round: number, bids: {[key: string]: number}) {
+  onBidsSubmitted(round: number, bids: PlayerInputs) {
     this.setState(prevState => {
       prevState.inputs[round] = prevState.inputs[round] || {bids: {}, tricks: {}};
       prevState.inputs[round].bids = bids;
@@ -33,7 +34,7 @@ export default class extends React.Component<{}, AppState> {
     });
   }
 
-  onTricksSubmitted(round: number, tricks: {[key: string]: number}) {
+  onTricksSubmitted(round: number, tricks: PlayerInputs) {
     this.setState(prevState => {
       prevState.inputs[round] = prevState.inputs[round] || {bids: {}, tricks: {}};
       prevState.inputs[round].tricks = tricks;

@@ -1,16 +1,17 @@
 import * as React from 'react';
 import BaseStage from './BaseStage';
+import {PlayerInputs} from '../types';
 
 export interface TricksProps {
   round: number,
   players: string[],
   onPrevious: () => void,
-  onNext: (tricks: {[key: string]: number}) => void,
-  initialState: {[key: string]: number}
+  onNext: (tricks: PlayerInputs) => void,
+  initialState: PlayerInputs
 };
 
 export default class extends React.Component<TricksProps,{}> {
-  validateInputs(inputs: {[key: string]: number}): boolean {
+  validateInputs(inputs: PlayerInputs): boolean {
     const allTricksSubmitted = Object.keys(inputs).length === this.props.players.length;
     const tricksEqualToCardCount =
       Object
