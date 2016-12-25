@@ -35,7 +35,7 @@ export default class extends React.Component<GameProps, GameState> {
         bidsSubmitted: false,
         round: prevState.round + 1,
         inputs: prevState.inputs
-      } as GameState;
+      };
     });
   }
 
