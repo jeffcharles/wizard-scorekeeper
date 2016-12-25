@@ -7,7 +7,8 @@ export interface ScoretableProps {
 }
 
 const tdStyle: React.CSSProperties = {
-  border: '1px black solid'
+  border: '1px black solid',
+  textAlign: 'center'
 }
 
 export default class extends React.Component<ScoretableProps, {}> {
