@@ -11,13 +11,11 @@ export interface AppState {
 export default class extends React.Component<{}, AppState> {
   constructor() {
     super();
-    const possiblePlayersString = sessionStorage.getItem('players')
-    if (possiblePlayersString !== null) {
-      const players = JSON.parse(possiblePlayersString);
-      this.state = {players, inputs: []};
-    } else {
-      this.state = {players: null, inputs: []};
-    }
+    const possiblePlayersString = sessionStorage.getItem('players');
+    const possibleInputsString = sessionStorage.getItem('inputs');
+    const players = (possiblePlayersString !== null && JSON.parse(possiblePlayersString)) || null;
+    const inputs = (possibleInputsString !== null && JSON.parse(possibleInputsString)) || [];
+    this.state = {players, inputs: inputs};
   }
 
   onBeginGame(players: string[]) {
@@ -30,6 +28,8 @@ export default class extends React.Component<{}, AppState> {
       prevState.inputs[round] = prevState.inputs[round] || {bids: {}, tricks: {}};
       prevState.inputs[round].bids = bids;
       return {inputs: prevState.inputs} as AppState;
+    }, () => {
+      sessionStorage.setItem('inputs', JSON.stringify(this.state.inputs));
     });
   }
 
@@ -38,6 +38,8 @@ export default class extends React.Component<{}, AppState> {
       prevState.inputs[round] = prevState.inputs[round] || {bids: {}, tricks: {}};
       prevState.inputs[round].tricks = tricks;
       return {inputs: prevState.inputs} as AppState;
+    }, () => {
+      sessionStorage.setItem('inputs', JSON.stringify(this.state.inputs));
     });
   }
 
