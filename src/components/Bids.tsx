@@ -5,7 +5,8 @@ export interface BidsProps {
   onNext: (bids: {[key: string]: number}) => void,
   onPrevious: () => void,
   players: string[],
-  round: number
+  round: number,
+  initialState: {[key: string]: number}
 }
 
 export default class extends React.Component<BidsProps, {}> {
@@ -25,7 +26,8 @@ export default class extends React.Component<BidsProps, {}> {
         players={this.props.players}
         onPrevious={this.props.onPrevious}
         onNext={this.props.onNext}
-        validateInputs={inputs => this.validateInputs(inputs)} />
+        validateInputs={inputs => this.validateInputs(inputs)}
+        initialState={this.props.initialState} />
     );
   }
 };

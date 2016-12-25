@@ -5,13 +5,14 @@ export interface BaseStageProps {
   players: string[],
   onPrevious: () => void,
   onNext: (inputs: {[key: string]: number}) => void,
-  validateInputs: (inputs: {[key: string]: number}) => boolean
+  validateInputs: (inputs: {[key: string]: number}) => boolean,
+  initialState: {[key: string]: number}
 };
 
 export default class extends React.Component<BaseStageProps, {[key: string]: number}> {
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props: BaseStageProps) {
+    super(props);
+    this.state = this.props.initialState;
   }
 
   onInputChanged(e: React.FormEvent<HTMLInputElement>, player: string) {
@@ -27,7 +28,7 @@ export default class extends React.Component<BaseStageProps, {[key: string]: num
         <ol>
           {this.props.players.map(player =>
             <li key={player}>
-              {player}: <input type="number" onChange={e => this.onInputChanged(e, player)} />
+              {player}: <input type="number" value={this.state[player]} onChange={e => this.onInputChanged(e, player)} />
             </li>
           )}
         </ol>

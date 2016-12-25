@@ -5,7 +5,8 @@ export interface TricksProps {
   round: number,
   players: string[],
   onPrevious: () => void,
-  onNext: (tricks: {[key: string]: number}) => void
+  onNext: (tricks: {[key: string]: number}) => void,
+  initialState: {[key: string]: number}
 };
 
 export default class extends React.Component<TricksProps,{}> {
@@ -25,7 +26,8 @@ export default class extends React.Component<TricksProps,{}> {
         players={this.props.players}
         onPrevious={this.props.onPrevious}
         onNext={this.props.onNext}
-        validateInputs={inputs => this.validateInputs(inputs)} />
+        validateInputs={inputs => this.validateInputs(inputs)}
+        initialState={this.props.initialState} />
     );
   }
 };
