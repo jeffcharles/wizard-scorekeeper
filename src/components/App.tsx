@@ -14,7 +14,7 @@ export default class extends React.Component<{}, AppState> {
     const possiblePlayersString = sessionStorage.getItem('players');
     const possibleInputsString = sessionStorage.getItem('inputs');
     const players = (possiblePlayersString !== null && JSON.parse(possiblePlayersString)) || null;
-    const inputs = (possibleInputsString !== null && JSON.parse(possibleInputsString)) || [];
+    const inputs = (possibleInputsString !== null && JSON.parse(possibleInputsString)) || [{bids: {}, tricks: {}}];
     this.state = {players, inputs: inputs};
   }
 

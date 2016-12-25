@@ -21,7 +21,7 @@ export default class extends React.Component<GameProps, GameState> {
     const lastInputs = this.props.inputs[this.props.inputs.length - 1];
     const isInputPopulated = (input: any) => Object.keys(input).length > 0;
     this.state = {
-      onBids: !lastInputs || (isInputPopulated(lastInputs.bids) && isInputPopulated(lastInputs.tricks)),
+      onBids: (isInputPopulated(lastInputs.bids) && isInputPopulated(lastInputs.tricks)) || (!isInputPopulated(lastInputs.bids) && !isInputPopulated(lastInputs.tricks)),
       round: this.props.inputs
         .filter(round => Object.keys(round.bids).length > 0 && Object.keys(round.tricks).length > 0)
         .length
@@ -51,7 +51,7 @@ export default class extends React.Component<GameProps, GameState> {
   }
 
   render() {
-    const currentInputs = this.props.inputs[this.state.round];
+    const currentInputs = this.props.inputs[this.state.round] || {bids: {}, players: {}};
     const actionElement = this.state.onBids ?
       (
         <Bids

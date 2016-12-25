@@ -28,7 +28,7 @@ export default class extends React.Component<BidsProps, {}> {
         onNext={this.props.onNext}
         canGoNext={inputs => this.validateInputs(inputs)}
         canGoPrevious={this.props.round > 1}
-        initialState={this.props.initialState} />
+        initialState={this.props.initialState || {}} />
     );
   }
 };
