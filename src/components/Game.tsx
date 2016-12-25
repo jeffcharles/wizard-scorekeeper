@@ -8,7 +8,7 @@ export interface GameProps {
 };
 
 interface GameState {
-  bidsSubmitted: boolean,
+  onBids: boolean,
   round: number,
   inputs: {bids: {[key: string]: number}, tricks: {[key: string]: number}}[]
 };
@@ -16,7 +16,7 @@ interface GameState {
 export default class extends React.Component<GameProps, GameState> {
   constructor() {
     super();
-    this.state = {bidsSubmitted: false, round: 0, inputs: []};
+    this.state = {onBids: true, round: 0, inputs: []};
   }
 
   onBidsSubmitted(bids: {[key: string]: number}) {
@@ -24,7 +24,7 @@ export default class extends React.Component<GameProps, GameState> {
       prevState.inputs[prevState.round] =
         prevState.inputs[prevState.round] || {bids: {}, tricks: {}};
       prevState.inputs[prevState.round].bids = bids;
-      return {bidsSubmitted: true, inputs: prevState.inputs} as GameState;
+      return {onBids: false, inputs: prevState.inputs} as GameState;
     });
   }
 
@@ -32,7 +32,7 @@ export default class extends React.Component<GameProps, GameState> {
     this.setState(prevState => {
       prevState.inputs[prevState.round].tricks = tricks;
       return {
-        bidsSubmitted: false,
+        onBids: true,
         round: prevState.round + 1,
         inputs: prevState.inputs
       };
@@ -41,31 +41,31 @@ export default class extends React.Component<GameProps, GameState> {
 
   onPreviousFromBids() {
     let newState = Object.assign({}, this.state);
-    newState.bidsSubmitted = true;
+    newState.onBids = false;
     newState.round -= 1;
     this.setState(newState);
   }
 
   onPreviousFromTricks() {
     let newState = Object.assign({}, this.state);
-    newState.bidsSubmitted = false;
+    newState.onBids = true;
     this.setState(newState);
   }
 
   render() {
-    const actionElement = this.state.bidsSubmitted ?
+    const actionElement = this.state.onBids ?
       (
-        <Tricks
-          round={this.state.round + 1}
-          players={this.props.players}
-          onNext={tricks => this.onTricksSubmitted(tricks)}
-          onPrevious={() => this.onPreviousFromTricks()} />
-      ) : (
         <Bids
           round={this.state.round + 1}
           players={this.props.players} // FIXME this should be adjusted so the dealer is first
           onNext={bids => this.onBidsSubmitted(bids)}
           onPrevious={() => this.onPreviousFromBids()} />
+      ) : (
+        <Tricks
+          round={this.state.round + 1}
+          players={this.props.players}
+          onNext={tricks => this.onTricksSubmitted(tricks)}
+          onPrevious={() => this.onPreviousFromTricks()} />
       )
     return (
       <div>
