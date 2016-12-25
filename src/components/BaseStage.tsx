@@ -1,17 +1,24 @@
 import * as React from 'react';
 import {PlayerInputs} from '../types';
 
-export interface BaseStageProps {
-  title: string,
+interface BaseStageInputsProps {
   players: string[],
-  onPrevious: () => void,
-  onNext: (inputs: PlayerInputs) => void,
-  canGoNext: (inputs: PlayerInputs) => boolean,
-  canGoPrevious: boolean,
-  initialState: PlayerInputs
+  initialState: PlayerInputs,
+  onNext: (bids: PlayerInputs) => void,
+  onPrevious: () => void
 };
 
-export default class extends React.Component<BaseStageProps, PlayerInputs> {
+export interface StageInputsProps extends BaseStageInputsProps {
+  round: number
+};
+
+export interface BaseStageProps extends BaseStageInputsProps {
+  title: string,
+  canGoNext: (inputs: PlayerInputs) => boolean,
+  canGoPrevious: boolean
+};
+
+export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
   constructor(props: BaseStageProps) {
     super(props);
     this.state = this.props.initialState;
