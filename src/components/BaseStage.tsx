@@ -37,7 +37,7 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
         <ol>
           {this.props.players.map(player =>
             <li key={player}>
-              {player}: <input type="number" value={this.state[player]} onChange={e => this.onInputChanged(e, player)} />
+              {player}: <input type="number" value={this.state[player] !== undefined ? this.state[player].toString() : ''} onChange={e => this.onInputChanged(e, player)} />
             </li>
           )}
         </ol>
