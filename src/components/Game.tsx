@@ -53,22 +53,34 @@ export default class extends React.Component<GameProps, GameState> {
 
   render() {
     const currentInputs = this.props.inputs[this.state.round] || {bids: {}, players: {}};
-    const actionElement = this.state.onBids ?
-      (
+    let actionElement: JSX.Element;
+    const isGameOver = (this.state.round + 1) > 60 / this.props.players.length;
+    if (isGameOver) {
+      actionElement = (
+        <div>
+          <h2>Game over</h2>
+          <button onClick={() => this.onPreviousFromBids()}>Previous</button>
+        </div>
+      );
+    } else if (this.state.onBids) {
+      actionElement = (
         <Bids
           round={this.state.round + 1}
           players={this.props.players} // FIXME this should be adjusted so the dealer is first
           onNext={bids => this.onBidsSubmitted(bids)}
           onPrevious={() => this.onPreviousFromBids()}
           initialState={currentInputs.bids} />
-      ) : (
+      );
+    } else {
+      actionElement = (
         <Tricks
           round={this.state.round + 1}
           players={this.props.players}
           onNext={tricks => this.onTricksSubmitted(tricks)}
           onPrevious={() => this.onPreviousFromTricks()}
           initialState={currentInputs.tricks} />
-      )
+      );
+    }
     return (
       <div>
         {actionElement}
