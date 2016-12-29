@@ -1,3 +1,5 @@
+const failPlugin = require('webpack-fail-plugin');
+
 module.exports = {
   entry: './src/index.tsx',
   output: {
@@ -19,5 +21,6 @@ module.exports = {
   },
   devServer: {
     inline: true
-  }
+  },
+  plugins: [failPlugin]
 };
