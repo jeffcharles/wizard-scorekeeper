@@ -25,9 +25,17 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
   }
 
   onInputChanged(e: React.FormEvent<HTMLInputElement>, player: string) {
-    this.setState({
-      [player]: parseInt((e.target as any).value, 10)
-    });
+    const number = parseInt((e.target as any).value, 10)
+    if (!Number.isNaN(number)) {
+      this.setState({
+        [player]: number
+      });
+    } else {
+      this.setState(prevState => {
+        delete prevState[player];
+        return prevState;
+      });
+    }
   }
 
   render() {
