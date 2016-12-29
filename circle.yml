@@ -18,3 +18,12 @@ dependencies:
 test:
   override:
     - npm run webpack
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - mkdir deploy
+      - cp index.html deploy
+      - cp -R dist deploy/
+      - aws s3 sync deploy s3://wizard-scorekeeper --delete
