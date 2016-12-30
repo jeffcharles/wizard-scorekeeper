@@ -53,8 +53,13 @@ export default class extends React.Component<GameProps, GameState> {
 
   render() {
     const currentInputs = this.props.inputs[this.state.round] || {bids: {}, players: {}};
-    let actionElement: JSX.Element;
+
+    const dealerIndex = this.state.round % this.props.players.length;
+    let playersStartingWithDealer = this.props.players.slice(dealerIndex);
+    playersStartingWithDealer = playersStartingWithDealer.concat(this.props.players.slice(0, dealerIndex));
+
     const isGameOver = (this.state.round + 1) > 60 / this.props.players.length;
+    let actionElement: JSX.Element;
     if (isGameOver) {
       actionElement = (
         <div>
@@ -66,7 +71,7 @@ export default class extends React.Component<GameProps, GameState> {
       actionElement = (
         <Bids
           round={this.state.round + 1}
-          players={this.props.players} // FIXME this should be adjusted so the dealer is first
+          players={playersStartingWithDealer}
           onNext={bids => this.onBidsSubmitted(bids)}
           onPrevious={() => this.onPreviousFromBids()}
           initialState={currentInputs.bids} />
@@ -75,7 +80,7 @@ export default class extends React.Component<GameProps, GameState> {
       actionElement = (
         <Tricks
           round={this.state.round + 1}
-          players={this.props.players}
+          players={playersStartingWithDealer}
           onNext={tricks => this.onTricksSubmitted(tricks)}
           onPrevious={() => this.onPreviousFromTricks()}
           initialState={currentInputs.tricks} />
