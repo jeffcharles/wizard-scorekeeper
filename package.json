@@ -6,6 +6,7 @@
   "author": "Jeffrey Charles <jeffreycharles@beyondtechnicallycorrect.com>",
   "license": "MIT",
   "scripts": {
+    "build": "NODE_ENV=production webpack -p",
     "serve": "webpack-dev-server --inline --hot",
     "webpack": "webpack"
   },

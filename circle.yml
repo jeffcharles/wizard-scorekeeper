@@ -17,7 +17,7 @@ dependencies:
 
 test:
   override:
-    - npm run webpack
+    - npm run build
 
 deployment:
   master:

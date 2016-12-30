@@ -16,9 +16,9 @@ export default class extends React.Component<SetupProps, SetupState> {
 
   onNameChange(e: React.FormEvent<HTMLInputElement>, index: number) {
     const name = (e.target as any).value;
-    let state = Object.assign({}, this.state);
-    state.players[index] = name;
-    this.setState(state);
+    this.setState(prevState =>
+      prevState.players[index] = name
+    );
   }
 
   render() {
