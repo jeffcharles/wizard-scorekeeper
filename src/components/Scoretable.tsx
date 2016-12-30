@@ -12,6 +12,11 @@ const tdStyle: React.CSSProperties = {
   textAlign: 'center'
 };
 
+const scoreboxTd =
+  Object.assign({
+    padding: 0
+  }, tdStyle);
+
 export default class extends React.Component<ScoretableProps, {}> {
   render() {
     const scores: {[key: string]: number}[] = [];
@@ -34,7 +39,7 @@ export default class extends React.Component<ScoretableProps, {}> {
       }
     );
     return (
-      <table>
+      <table style={{borderCollapse: 'collapse'}}>
         <thead>
           <tr>
             <th style={tdStyle}>Round</th>
@@ -46,7 +51,7 @@ export default class extends React.Component<ScoretableProps, {}> {
             <tr key={round}>
               <td style={tdStyle}>{round + 1}</td>
               {this.props.players.map(player =>
-                <td key={`${round}-${player}`}>
+                <td key={`${round}-${player}`} style={scoreboxTd}>
                   <ScoreBox
                     score={(scores[round] || {})[player]}
                     bid={(this.props.inputs[round] || {bids: {}}).bids[player]}
