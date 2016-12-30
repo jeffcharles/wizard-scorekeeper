@@ -12,9 +12,11 @@ export interface StageInputsProps extends BaseStageInputsProps {
   readonly round: number
 };
 
+export type CanGoNextResult = {canGoNext: boolean, message: string};
+
 export interface BaseStageProps extends BaseStageInputsProps {
   readonly title: string,
-  readonly canGoNext: (inputs: PlayerInputs) => boolean,
+  readonly canGoNext: (inputs: PlayerInputs) => CanGoNextResult,
   readonly canGoPrevious: boolean
 };
 
@@ -40,6 +42,7 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
   }
 
   render() {
+    const canGoNextResult = this.props.canGoNext(this.state);
     return (
       <div>
         <h2>{this.props.title}</h2>
@@ -50,13 +53,14 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
             </li>
           )}
         </ol>
+        <div>{canGoNextResult.message}</div>
         <button
           disabled={!this.props.canGoPrevious}
           onClick={this.props.onPrevious}>
           Previous
         </button>
         <button
-          disabled={!this.props.canGoNext(this.state)}
+          disabled={!canGoNextResult.canGoNext}
           onClick={() => this.props.onNext(this.state)}>
           Next
         </button>

@@ -1,15 +1,16 @@
 import * as React from 'react';
-import {BaseStage, StageInputsProps} from './BaseStage';
+import {BaseStage, CanGoNextResult, StageInputsProps} from './BaseStage';
 import {PlayerInputs} from '../types';
 
 export default class extends React.Component<StageInputsProps, {}> {
-  validateInputs(inputs: PlayerInputs): boolean {
+  validateInputs(inputs: PlayerInputs): CanGoNextResult {
     const allTricksSubmitted = Object.keys(inputs).length === this.props.players.length;
     const tricksEqualToCardCount =
       Object
         .keys(inputs)
         .reduce((acc, key) => acc + inputs[key], 0) === this.props.round;
-    return allTricksSubmitted && tricksEqualToCardCount;
+    const message = allTricksSubmitted && !tricksEqualToCardCount ? 'Tricks must add up to round number' : '';
+    return {canGoNext: allTricksSubmitted && tricksEqualToCardCount, message: message};
   }
 
   render() {
