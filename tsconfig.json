@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
+    "lib": ["dom", "es5", "es2015", "scripthost"],
     "module": "commonjs",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
