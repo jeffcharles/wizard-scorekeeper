@@ -42,7 +42,7 @@ export default class extends React.Component<ScoretableProps, {}> {
           </tr>
         </thead>
         <tbody>
-          {[...Array(60 / this.props.players.length).keys()].map(round =>
+          {Array.apply(null, {length: 60 / this.props.players.length}).map(Function.call, Number).map((round: number) =>
             <tr key={round}>
               <td style={tdStyle}>{round + 1}</td>
               {this.props.players.map(player =>

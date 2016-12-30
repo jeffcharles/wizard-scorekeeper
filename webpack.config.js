@@ -1,4 +1,5 @@
 const failPlugin = require('webpack-fail-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -22,5 +23,12 @@ module.exports = {
   devServer: {
     inline: true
   },
-  plugins: [failPlugin]
+  plugins: [
+    failPlugin,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env['NODE_ENV'])
+      }
+    })
+  ]
 };
