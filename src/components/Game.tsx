@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Button} from 'react-mdl';
 import Bids from './Bids';
 import {PlayerInputs} from '../types';
 import Tricks from './Tricks';
@@ -64,7 +65,7 @@ export default class extends React.Component<GameProps, GameState> {
       actionElement = (
         <div>
           <h2>Game over</h2>
-          <button onClick={() => this.onPreviousFromBids()}>Previous</button>
+          <Button raised onClick={() => this.onPreviousFromBids()}>Previous</Button>
         </div>
       );
     } else if (this.state.onBids) {

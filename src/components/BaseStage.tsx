@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Button, Textfield} from 'react-mdl';
 import {PlayerInputs} from '../types';
 
 interface BaseStageInputsProps {
@@ -26,7 +27,7 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
     this.state = this.props.initialState;
   }
 
-  onInputChanged(e: React.FormEvent<HTMLInputElement>, player: string) {
+  onInputChanged(e: React.FormEvent<Textfield>, player: string) {
     const number = parseInt((e.target as any).value, 10)
     const isNumberNan = number !== number;
     if (!isNumberNan) {
@@ -46,24 +47,26 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <ol>
-          {this.props.players.map(player =>
-            <li key={player}>
-              {player}: <input type="number" value={this.state[player] !== undefined ? this.state[player].toString() : ''} onChange={e => this.onInputChanged(e, player)} />
-            </li>
-          )}
-        </ol>
-        <div>{canGoNextResult.message}</div>
-        <button
+        {this.props.players.map(player =>
+          <div key={player}>
+            <Textfield type="number" label={player} floatingLabel={true} value={this.state[player] !== undefined ? this.state[player].toString() : ''} onChange={e => this.onInputChanged(e, player)} />
+          </div>
+        )}
+        <div style={{marginBottom: 15}}>{canGoNextResult.message}</div>
+        <Button
+          raised
           disabled={!this.props.canGoPrevious}
           onClick={this.props.onPrevious}>
           Previous
-        </button>
-        <button
+        </Button>
+        <Button
+          primary
+          raised
           disabled={!canGoNextResult.canGoNext}
-          onClick={() => this.props.onNext(this.state)}>
+          onClick={() => this.props.onNext(this.state)}
+          style={{marginLeft: 40}}>
           Next
-        </button>
+        </Button>
       </div>
     );
   }

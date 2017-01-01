@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Content, Header, Layout} from 'react-mdl';
 
 import Game from './Game';
 import {PlayerInputs} from '../types';
@@ -45,12 +46,22 @@ export default class extends React.Component<{}, AppState> {
   }
 
   render() {
-    return this.state.players ?
-      <Game
-        players={this.state.players}
-        inputs={this.state.inputs}
-        onBidsSubmitted={(round, bids) => this.onBidsSubmitted(round, bids)}
-        onTricksSubmitted={(round, tricks) => this.onTricksSubmitted(round, tricks)} /> :
-      <Setup onBeginGame={this.onBeginGame.bind(this)} />;
+    return (
+      <Layout>
+        <Header title="Wizard Scorekeeper" />
+        <Content>
+          <div style={{paddingBottom: 30, paddingLeft: 30, paddingRight: 30}}>
+            {this.state.players ?
+              <Game
+                players={this.state.players}
+                inputs={this.state.inputs}
+                onBidsSubmitted={(round, bids) => this.onBidsSubmitted(round, bids)}
+                onTricksSubmitted={(round, tricks) => this.onTricksSubmitted(round, tricks)} /> :
+              <Setup onBeginGame={this.onBeginGame.bind(this)} />
+            }
+          </div>
+        </Content>
+      </Layout>
+    );
   };
 };
