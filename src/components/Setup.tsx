@@ -25,7 +25,6 @@ export default class extends React.Component<SetupProps, SetupState> {
   render() {
     return (
       <div>
-        <h2>Player names</h2>
         {this.state.players.map((val, index) =>
           <div key={index}>
             <Textfield

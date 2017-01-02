@@ -16,7 +16,7 @@ export interface StageInputsProps extends BaseStageInputsProps {
 export type CanGoNextResult = {canGoNext: boolean, message: string};
 
 export interface BaseStageProps extends BaseStageInputsProps {
-  readonly title: string,
+  readonly label: (player: string) => string,
   readonly canGoNext: (inputs: PlayerInputs) => CanGoNextResult,
   readonly canGoPrevious: boolean
 };
@@ -46,10 +46,9 @@ export class BaseStage extends React.Component<BaseStageProps, PlayerInputs> {
     const canGoNextResult = this.props.canGoNext(this.state);
     return (
       <div>
-        <h2>{this.props.title}</h2>
         {this.props.players.map(player =>
           <div key={player}>
-            <Textfield type="number" label={player} floatingLabel={true} value={this.state[player] !== undefined ? this.state[player].toString() : ''} onChange={e => this.onInputChanged(e, player)} />
+            <Textfield type="number" label={this.props.label(player)} floatingLabel={true} value={this.state[player] !== undefined ? this.state[player].toString() : ''} onChange={e => this.onInputChanged(e, player)} />
           </div>
         )}
         <div style={{marginBottom: 15}}>{canGoNextResult.message}</div>

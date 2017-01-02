@@ -16,7 +16,7 @@ export default class extends React.Component<StageInputsProps, {}> {
   render() {
     return (
       <BaseStage
-        title={`Tricks for round ${this.props.round}`}
+        label={player => `${player}'s tricks for round ${this.props.round}`}
         players={this.props.players}
         onPrevious={this.props.onPrevious}
         onNext={this.props.onNext}
