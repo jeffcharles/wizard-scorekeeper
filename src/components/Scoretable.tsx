@@ -9,13 +9,11 @@ export interface ScoretableProps {
 
 const tdStyle: React.CSSProperties = {
   border: '1px black solid',
+  padding: 5,
   textAlign: 'center'
 };
 
-const scoreboxTd =
-  Object.assign({
-    padding: 0
-  }, tdStyle);
+const scoreboxTd = Object.assign({}, tdStyle, {padding: 0});
 
 export default class extends React.Component<ScoretableProps, {}> {
   render() {
@@ -39,7 +37,7 @@ export default class extends React.Component<ScoretableProps, {}> {
       }
     );
     return (
-      <table style={{borderCollapse: 'collapse'}}>
+      <table style={{borderCollapse: 'collapse', marginTop: 30}}>
         <thead>
           <tr>
             <th style={tdStyle}>Round</th>

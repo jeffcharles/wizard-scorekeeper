@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Button, Textfield} from 'react-mdl';
 
 export interface SetupProps {
   readonly onBeginGame: (players: string[]) => void
@@ -14,7 +15,7 @@ export default class extends React.Component<SetupProps, SetupState> {
     this.state = {players: ['', '', '', '', '', '']};
   }
 
-  onNameChange(e: React.FormEvent<HTMLInputElement>, index: number) {
+  onNameChange(e: React.FormEvent<Textfield>, index: number) {
     const name = (e.target as any).value;
     this.setState(prevState =>
       prevState.players[index] = name
@@ -25,21 +26,22 @@ export default class extends React.Component<SetupProps, SetupState> {
     return (
       <div>
         <h2>Player names</h2>
-        <ol>
-          {this.state.players.map((val, index) =>
-            <li key={index}>
-              <input
-                type="text"
-                value={val}
-                onChange={e => this.onNameChange(e, index)} />
-            </li>
-          )}
-        </ol>
-        <button
+        {this.state.players.map((val, index) =>
+          <div key={index}>
+            <Textfield
+              type="text"
+              label={`Player ${index + 1}`}
+              value={val}
+              onChange={e => this.onNameChange(e, index)} />
+          </div>
+        )}
+        <Button
+          primary
+          raised
           disabled={this.state.players.filter(p => !!p).length < 3}
           onClick={() => this.props.onBeginGame(this.state.players.filter(p => !!p))}>
           Begin game
-        </button>
+        </Button>
       </div>
     );
   }
