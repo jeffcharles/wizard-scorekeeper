@@ -2,6 +2,8 @@ machine:
   environment:
     YARN_VERSION: 0.18.1
     PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+  node:
+    version: 6.9.2
 
 dependencies:
   pre:
@@ -23,7 +25,6 @@ deployment:
   master:
     branch: master
     commands:
-      - find dist -type f -exec gzip "{}" \; -exec mv "{}.gz" "{}" \;
       - mv dist/index.html index.html # Do not include index.html in s3 sync so that different cache-control headers are applied
-      - aws s3 sync dist s3://wizard-scorekeeper --delete --content-encoding gzip --cache-control 'public, max-age=31536000'
-      - aws s3 cp index.html s3://wizard-scorekeeper/index.html --content-encoding gzip --cache-control 'no-cache, no-store, must-revalidate'
+      - aws s3 sync dist s3://wizard-scorekeeper --delete --cache-control 'public, max-age=31536000'
+      - aws s3 cp index.html s3://wizard-scorekeeper/index.html --cache-control 'no-cache, no-store, must-revalidate'
