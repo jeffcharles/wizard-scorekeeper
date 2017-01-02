@@ -24,4 +24,6 @@ deployment:
     branch: master
     commands:
       - find dist -type f -exec gzip "{}" \; -exec mv "{}.gz" "{}" \;
-      - aws s3 sync dist s3://wizard-scorekeeper --delete --content-encoding gzip
+      - mv dist/index.html index.html # Do not include index.html in s3 sync so that different cache-control headers are applied
+      - aws s3 sync dist s3://wizard-scorekeeper --delete --content-encoding gzip --cache-control 'public, max-age=31536000'
+      - aws s3 cp index.html s3://wizard-scorekeeper/index.html --content-encoding gzip --cache-control 'no-cache, no-store, must-revalidate'
