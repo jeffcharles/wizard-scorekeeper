@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[hash].js',
     path: `${__dirname}/dist`
   },
   devtool: 'source-map',
