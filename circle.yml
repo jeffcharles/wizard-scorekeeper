@@ -23,8 +23,5 @@ deployment:
   master:
     branch: master
     commands:
-      - mkdir deploy
-      - cp index.html deploy
-      - cp -R dist deploy/
       - find deploy -type f -exec gzip "{}" \; -exec mv "{}.gz" "{}" \;
-      - aws s3 sync deploy s3://wizard-scorekeeper --delete --content-encoding gzip
+      - aws s3 sync dist s3://wizard-scorekeeper --delete --content-encoding gzip

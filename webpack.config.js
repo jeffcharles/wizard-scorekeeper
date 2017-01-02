@@ -1,12 +1,12 @@
 const failPlugin = require('webpack-fail-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: `${__dirname}/dist`,
-    publicPath: `/dist/`
+    path: `${__dirname}/dist`
   },
   devtool: 'source-map',
   resolve: {
@@ -30,6 +30,9 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env['NODE_ENV'])
       }
+    }),
+    new HtmlWebpackPlugin({
+      template: 'index.html.ejs'
     })
   ]
 };
