@@ -11,8 +11,8 @@ export interface AppState {
 };
 
 function getInitialState(): AppState {
-  const possiblePlayersString = sessionStorage.getItem('players');
-  const possibleInputsString = sessionStorage.getItem('inputs');
+  const possiblePlayersString = localStorage.getItem('players');
+  const possibleInputsString = localStorage.getItem('inputs');
   const players = (possiblePlayersString !== null && JSON.parse(possiblePlayersString)) || null;
   const inputs = (possibleInputsString !== null && JSON.parse(possibleInputsString)) || [{bids: {}, tricks: {}}];
   return {players, inputs: inputs};
@@ -25,7 +25,7 @@ export default class extends React.Component<{}, AppState> {
   }
 
   onBeginGame(players: string[]) {
-    sessionStorage.setItem('players', JSON.stringify(players));
+    localStorage.setItem('players', JSON.stringify(players));
     this.setState({players} as AppState);
   }
 
@@ -35,13 +35,13 @@ export default class extends React.Component<{}, AppState> {
       prevState.inputs[round].bids = bids;
       return {inputs: prevState.inputs} as AppState;
     }, () => {
-      sessionStorage.setItem('inputs', JSON.stringify(this.state.inputs));
+      localStorage.setItem('inputs', JSON.stringify(this.state.inputs));
     });
   }
 
   onNewGame(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
-    sessionStorage.clear();
+    localStorage.clear();
     this.setState(getInitialState());
   }
 
@@ -51,7 +51,7 @@ export default class extends React.Component<{}, AppState> {
       prevState.inputs[round].tricks = tricks;
       return {inputs: prevState.inputs} as AppState;
     }, () => {
-      sessionStorage.setItem('inputs', JSON.stringify(this.state.inputs));
+      localStorage.setItem('inputs', JSON.stringify(this.state.inputs));
     });
   }
 
