@@ -47,7 +47,7 @@ export default class extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <Layout>
+      <Layout fixedHeader={true}>
         <Header title="Wizard Scorekeeper" />
         <Content>
           <div style={{paddingBottom: 30, paddingLeft: 30, paddingRight: 30}}>
