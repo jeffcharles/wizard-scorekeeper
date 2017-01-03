@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Content, Header, Layout, Navigation} from 'react-mdl';
+import {Content, Header, IconButton, Layout, Menu, MenuItem} from 'react-mdl';
 
 import Game from './Game';
 import {PlayerInputs} from '../types';
@@ -39,8 +39,7 @@ export default class extends React.Component<{}, AppState> {
     });
   }
 
-  onNewGame(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
+  onNewGame() {
     localStorage.clear();
     this.setState(getInitialState());
   }
@@ -56,16 +55,13 @@ export default class extends React.Component<{}, AppState> {
   }
 
   render() {
-    let newGame;
-    if (this.state.players) {
-      newGame = <a href="" onClick={e => this.onNewGame(e)}>New Game</a>;
-    }
     return (
       <Layout fixedHeader={true}>
         <Header title="Wizard Scorekeeper">
-          <Navigation>
-            {newGame}
-          </Navigation>
+          <IconButton id="menu" name="more_vert" />
+          <Menu target="menu" align="right">
+            <MenuItem disabled={!this.state.players} onClick={() => this.onNewGame()}>New Game</MenuItem>
+          </Menu>
         </Header>
         <Content>
           <div style={{paddingBottom: 30, paddingLeft: 30, paddingRight: 30}}>
@@ -74,6 +70,7 @@ export default class extends React.Component<{}, AppState> {
                 players={this.state.players}
                 inputs={this.state.inputs}
                 onBidsSubmitted={(round, bids) => this.onBidsSubmitted(round, bids)}
+                onNewGame={() => this.onNewGame()}
                 onTricksSubmitted={(round, tricks) => this.onTricksSubmitted(round, tricks)} /> :
               <Setup onBeginGame={this.onBeginGame.bind(this)} />
             }
