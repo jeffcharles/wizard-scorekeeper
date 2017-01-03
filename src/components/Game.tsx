@@ -9,6 +9,7 @@ export interface GameProps {
   readonly players: string[],
   readonly inputs: {bids: PlayerInputs, tricks: PlayerInputs}[],
   readonly onBidsSubmitted: (round: number, bids: PlayerInputs) => void,
+  readonly onNewGame: () => void,
   readonly onTricksSubmitted: (round: number, tricks: PlayerInputs) => void
 };
 
@@ -66,6 +67,7 @@ export default class extends React.Component<GameProps, GameState> {
         <div>
           <h2>Game over</h2>
           <Button raised onClick={() => this.onPreviousFromBids()}>Previous</Button>
+          <Button raised primary style={{marginLeft: 40}} onClick={() => this.props.onNewGame()}>New game</Button>
         </div>
       );
     } else if (this.state.onBids) {
