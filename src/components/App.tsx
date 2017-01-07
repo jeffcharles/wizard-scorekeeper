@@ -63,7 +63,7 @@ export default class extends React.Component<{}, AppState> {
             <MenuItem disabled={!this.state.players} onClick={() => this.onNewGame()}>New Game</MenuItem>
           </Menu>
         </Header>
-        <Content>
+        <Content style={{overflowX: 'scroll'}}>
           <div style={{paddingBottom: 30, paddingLeft: 30, paddingRight: 30}}>
             {this.state.players ?
               <Game
