@@ -1,6 +1,6 @@
 # Wizard Scorekeeper
 
-An app to keep score during games of Wizard. It's deployed at <https://d2pyesbg082pxv.cloudfront.net/>.
+An app to keep score during games of Wizard. It's deployed at <https://wizard-scorekeeper.beyondtechnicallycorrect.com>.
 
 ## Developing
 
